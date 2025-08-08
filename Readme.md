@@ -64,6 +64,7 @@ Le fichier `docker-compose.yml` principal intègre les 3 stacks :
 # 🖥️ Stack Fieni (Applications)
 # 📊 Stack Khaoutar (Monitoring) 
 # 🛡️ Stack Amine (Sécurité)
+```
 ## 🏛️ **Architecture Collaborative**
 ```mermaid
 graph TB
