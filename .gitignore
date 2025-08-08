@@ -1,0 +1,33 @@
+# Variables d'environnement
+.env
+
+# Données Docker
+**/data/
+**/logs/
+**/*-data/
+
+# Backups
+backups/
+*.sql
+*.rdb
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Tests
+performance_results/
+test_outputs/
+
+# Temporary files
+tmp/
+temp/

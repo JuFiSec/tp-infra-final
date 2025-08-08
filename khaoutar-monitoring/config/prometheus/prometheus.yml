@@ -1,0 +1,35 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Métriques des containers
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+
+  # Métriques système
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['node_exporter:9100']
+
+  # Métriques PostgreSQL
+  - job_name: 'postgres_exporter'
+    static_configs:
+      - targets: ['postgres_exporter:9187']
+
+  # Métriques Redis
+  - job_name: 'redis_exporter'
+    static_configs:
+      - targets: ['redis_exporter:9121']
+
+  # Métriques Prometheus lui-même
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Métriques Kong (si activé)
+  - job_name: 'kong'
+    static_configs:
+      - targets: ['kong:8001']
+    metrics_path: '/metrics'

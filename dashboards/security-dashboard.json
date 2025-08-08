@@ -1,0 +1,113 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Security Monitoring Dashboard",
+    "tags": ["security", "waf", "ids", "kong"],
+    "timezone": "browser",
+    "refresh": "30s",
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "WAF Status",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "up{job=\"waf\"}",
+            "legendFormat": "ModSecurity WAF"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "0": {"text": "DOWN", "color": "red"},
+                  "1": {"text": "UP", "color": "green"}
+                }
+              }
+            ]
+          }
+        },
+        "gridPos": {"h": 6, "w": 6, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "title": "Kong Gateway Status",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "up{job=\"kong\"}",
+            "legendFormat": "Kong Gateway"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "0": {"text": "DOWN", "color": "red"},
+                  "1": {"text": "UP", "color": "green"}
+                }
+              }
+            ]
+          }
+        },
+        "gridPos": {"h": 6, "w": 6, "x": 6, "y": 0}
+      },
+      {
+        "id": 3,
+        "title": "HTTP Requests by Status",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])",
+            "legendFormat": "{{status}} requests/sec"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 6}
+      },
+      {
+        "id": 4,
+        "title": "Blocked Requests (WAF)",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{status=~\"403|406\"}[5m])",
+            "legendFormat": "Blocked {{status}}"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 6}
+      },
+      {
+        "id": 5,
+        "title": "Top Attack Types",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "topk(10, rate(security_attacks_total[5m]))",
+            "format": "table"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 14}
+      },
+      {
+        "id": 6,
+        "title": "Security Events Timeline",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(security_events_total[1m])",
+            "legendFormat": "{{event_type}}"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 14}
+      }
+    ],
+    "schemaVersion": 27,
+    "version": 1
+  }
+}
